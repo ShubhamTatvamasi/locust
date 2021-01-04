@@ -11,7 +11,7 @@ helm repo update
 ```
 
 create config map:
-```yaml
+```python
 kubectl apply -f - << EOF
 apiVersion: v1
 kind: ConfigMap

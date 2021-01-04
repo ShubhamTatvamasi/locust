@@ -36,6 +36,7 @@ helm install locust deliveryhero/locust \
   --set loadtest.locust_locustfile_configmap=my-loadtest-locustfile \
   --set service.type=NodePort \
   --set worker.hpa.enabled=true \
+  --set worker.resources.limits.memory=256Mi \
   --set worker.resources.limits.cpu=500m
 ```
 

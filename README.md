@@ -13,7 +13,8 @@ helm repo update
 Install locust:
 ```bash
 helm install locust deliveryhero/locust \
-  --set service.type=NodePort
+  --set service.type=NodePort \
+  --set worker.hpa.enabled=true
 ```
 
 Update NodePort

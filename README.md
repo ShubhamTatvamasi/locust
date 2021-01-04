@@ -35,7 +35,8 @@ Install locust:
 helm install locust deliveryhero/locust \
   --set loadtest.locust_locustfile_configmap=my-loadtest-locustfile \
   --set service.type=NodePort \
-  --set worker.hpa.enabled=true
+  --set worker.hpa.enabled=true \
+  --set worker.resources.limits.cpu=500m
 ```
 
 Uninstall locust

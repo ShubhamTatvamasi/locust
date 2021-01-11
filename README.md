@@ -34,13 +34,37 @@ Install locust:
 ```bash
 helm install locust deliveryhero/locust \
   --set loadtest.locust_locustfile_configmap=my-loadtest-locustfile \
-  --set service.type=NodePort \
   --set worker.hpa.enabled=true \
   --set worker.hpa.targetCPUUtilizationPercentage=100 \
   --set worker.resources.limits.memory=256Mi \
   --set worker.resources.limits.cpu=200m \
   --set worker.resources.requests.memory=128Mi \
-  --set worker.resources.requests.cpu=100m
+  --set worker.resources.requests.cpu=100m \
+  --set service.type=NodePort
+```
+> Remove NodePort if you have LoadBalancer
+
+Ingress for locust
+```bash
+kubectl apply -f - << EOF
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: locust
+spec:
+  tls:
+    - hosts:
+      - locust.k8s.shubhamtatvamasi.com
+      secretName: letsencrypt
+  rules:
+    - host: locust.k8s.shubhamtatvamasi.com
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: locust
+            servicePort: 8089
+EOF
 ```
 
 Uninstall locust
